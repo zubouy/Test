@@ -1,0 +1,80 @@
+﻿@using TestHai.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<TestHai.Models.ProductL>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>DANH SÁCH SẢN PHẨM</h2>
+
+<p>
+    @Html.ActionLink("Thêm Mới", "ThemMoi")
+</p>
+<table class="table" style="color: #9e6f14;">
+    <tr>
+        <th style="width:200px">  Hình Ảnh </th>
+        <th style="width:200px">  Tên Sản Phẩm </th>
+        <th style="width:100px">  Danh Mục  </th>
+        <th style="width:150px">  Giá Bán </th>
+        <th style="width:120px">  Giá KM  </th>
+        <th style="width:100px">  Mới    </th>
+        <th style="width:100px">  Ngày Tạo  </th>
+        <th style="width:100px">  Ngày Sửa  </th>
+        <th style="width:100px">  Sửa Bởi  </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Content("~/images/"+  item.Product.Photo)" style="width: 50px;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.BrandID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.PriceSell)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.IsNew)
+            </td>                          
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.DateModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ModifiedBy)
+
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+<div style="text-align: center;">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount;</div>
+<div class="media-list" style="
+    padding-left: 500px;
+">
+
+    @Html.PagedListPager(Model, page => Url.Action("Product", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ibebiz" Class="dbQLSanPhamDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=ibebiz;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ibebizConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Accounts" Member="Accounts">
+    <Type Name="Account">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IsLock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SessionID" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="GroupId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="LastLog" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Group_Account" Member="Group" ThisKey="GroupId" OtherKey="ID" Type="Group" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tables" Member="Tables">
+    <Type Name="Table">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="FaIcon" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Priority" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="Table_Permission" Member="Permissions" ThisKey="ID" OtherKey="TableID" Type="Permission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Brands" Member="Brands">
+    <Type Name="Brand">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Brand_Product" Member="Products" ThisKey="ID" OtherKey="BrandID" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Categories" Member="Categories">
+    <Type Name="Category">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Priority" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="IsHome" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="MinPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="MaxPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Iterator" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="IsLock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Category_Category" Member="Categories" ThisKey="ID" OtherKey="CategoryID" Type="Category" />
+      <Association Name="Category_CategoryL" Member="CategoryLs" ThisKey="ID" OtherKey="CategoryID" Type="CategoryL" />
+      <Association Name="Category_New" Member="News" ThisKey="ID" OtherKey="CategoryID" Type="New" />
+      <Association Name="Category_Product" Member="Products" ThisKey="ID" OtherKey="CategoryID" Type="Product" />
+      <Association Name="Category_Category" Member="Category1" ThisKey="CategoryID" OtherKey="ID" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CategoryLs" Member="CategoryLs">
+    <Type Name="CategoryL">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="H1" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Filter" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Language" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="CategoryL_CategoryProperty" Member="CategoryProperties" ThisKey="ID" OtherKey="CategoryLID" Type="CategoryProperty" />
+      <Association Name="Category_CategoryL" Member="Category" ThisKey="CategoryID" OtherKey="ID" Type="Category" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CategoryProperties" Member="CategoryProperties">
+    <Type Name="CategoryProperty">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryLID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PropertyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsFind" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsBasic" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsFull" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="CategoryL_CategoryProperty" Member="CategoryL" ThisKey="CategoryLID" OtherKey="ID" Type="CategoryL" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Property_CategoryProperty" Member="Property" ThisKey="PropertyID" OtherKey="ID" Type="Property" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comments" Member="Comments">
+    <Type Name="Comment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CommentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsLock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IsAdmin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsReply" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Comment_Comment" Member="Comments" ThisKey="ID" OtherKey="CommentID" Type="Comment" />
+      <Association Name="Comment_Comment" Member="Comment1" ThisKey="CommentID" OtherKey="ID" Type="Comment" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FCategories" Member="FCategories">
+    <Type Name="FCategory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Priority" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="IsLock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FCategoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="FCategory_FCategory" Member="FCategories" ThisKey="ID" OtherKey="FCategoryID" Type="FCategory" />
+      <Association Name="FCategory_FCategoryL" Member="FCategoryLs" ThisKey="ID" OtherKey="FCategoryID" Type="FCategoryL" />
+      <Association Name="FCategory_FCategory" Member="FCategory1" ThisKey="FCategoryID" OtherKey="ID" Type="FCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FCategoryLs" Member="FCategoryLs">
+    <Type Name="FCategoryL">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FCategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IsBlank" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Language" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FCategory_FCategoryL" Member="FCategory" ThisKey="FCategoryID" OtherKey="ID" Type="FCategory" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Groups" Member="Groups">
+    <Type Name="Group">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Group_Account" Member="Accounts" ThisKey="ID" OtherKey="GroupId" Type="Account" />
+      <Association Name="Group_Permission" Member="Permissions" ThisKey="ID" OtherKey="GroupID" Type="Permission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.News" Member="News">
+    <Type Name="New">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IsPin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsLock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="New_NewsL" Member="NewsLs" ThisKey="ID" OtherKey="NewsID" Type="NewsL" />
+      <Association Name="Category_New" Member="Category" ThisKey="CategoryID" OtherKey="ID" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NewsLs" Member="NewsLs">
+    <Type Name="NewsL">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NewsID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Language" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="New_NewsL" Member="New" ThisKey="NewsID" OtherKey="ID" Type="New" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderDetails" Member="OrderDetails">
+    <Type Name="OrderDetail">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductDetailID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PriceSell" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Association Name="Order_OrderDetail" Member="Order" ThisKey="OrderID" OtherKey="ID" Type="Order" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="ProductDetail_OrderDetail" Member="ProductDetail" ThisKey="ProductDetailID" OtherKey="ID" Type="ProductDetail" IsForeignKey="true" />
+      <Association Name="Product_OrderDetail" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Total" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Deposit" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Order_OrderDetail" Member="OrderDetails" ThisKey="ID" OtherKey="OrderID" Type="OrderDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Permissions" Member="Permissions">
+    <Type Name="Permission">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TableID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Read]" Member="Read" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="[Create]" Member="Create" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="[Update]" Member="Update" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="[Delete]" Member="Delete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Group_Permission" Member="Group" ThisKey="GroupID" OtherKey="ID" Type="Group" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Table_Permission" Member="Table" ThisKey="TableID" OtherKey="ID" Type="Table" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pictures" Member="Pictures">
+    <Type Name="Picture">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="Product_Picture" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Posts" Member="Posts">
+    <Type Name="Post">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PriceCharts" Member="PriceCharts">
+    <Type Name="PriceChart">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PriceSell" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Product_PriceChart" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductDetails" Member="ProductDetails">
+    <Type Name="ProductDetail">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SizeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ProductDetail_OrderDetail" Member="OrderDetails" ThisKey="ID" OtherKey="ProductDetailID" Type="OrderDetail" />
+      <Association Name="Product_ProductDetail" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Size_ProductDetail" Member="Size" ThisKey="SizeID" OtherKey="ID" Type="Size" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductLs" Member="ProductLs">
+    <Type Name="ProductL">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Keyword" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Summary" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Property" Type="System.Xml.Linq.XElement" DbType="Xml" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PropertyFull" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PropertyID" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Language" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ProductL_ProductProperty" Member="ProductProperties" ThisKey="ID" OtherKey="ProductLID" Type="ProductProperty" />
+      <Association Name="Product_ProductL" Member="Product" ThisKey="ProductID" OtherKey="ID" Type="Product" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductProperties" Member="ProductProperties">
+    <Type Name="ProductProperty">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductLID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PropertyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PDID" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="ProductL_ProductProperty" Member="ProductL" ThisKey="ProductLID" OtherKey="ID" Type="ProductL" IsForeignKey="true" />
+      <Association Name="Property_ProductProperty" Member="Property" ThisKey="PropertyID" OtherKey="ID" Type="Property" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IsNew" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PriceSell" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="DateFrom" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsLock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BrandID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Product_OrderDetail" Member="OrderDetails" ThisKey="ID" OtherKey="ProductID" Type="OrderDetail" />
+      <Association Name="Product_Picture" Member="Pictures" ThisKey="ID" OtherKey="ProductID" Type="Picture" />
+      <Association Name="Product_PriceChart" Member="PriceCharts" ThisKey="ID" OtherKey="ProductID" Type="PriceChart" />
+      <Association Name="Product_ProductDetail" Member="ProductDetails" ThisKey="ID" OtherKey="ProductID" Type="ProductDetail" />
+      <Association Name="Product_ProductL" Member="ProductLs" ThisKey="ID" OtherKey="ProductID" Type="ProductL" />
+      <Association Name="Brand_Product" Member="Brand" ThisKey="BrandID" OtherKey="ID" Type="Brand" IsForeignKey="true" />
+      <Association Name="Category_Product" Member="Category" ThisKey="CategoryID" OtherKey="ID" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Properties" Member="Properties">
+    <Type Name="Property">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Property_CategoryProperty" Member="CategoryProperties" ThisKey="ID" OtherKey="PropertyID" Type="CategoryProperty" />
+      <Association Name="Property_ProductProperty" Member="ProductProperties" ThisKey="ID" OtherKey="PropertyID" Type="ProductProperty" />
+      <Association Name="Property_PropertyDetail" Member="PropertyDetails" ThisKey="ID" OtherKey="PropertyID" Type="PropertyDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PropertyDetails" Member="PropertyDetails">
+    <Type Name="PropertyDetail">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="PropertyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Property_PropertyDetail" Member="Property" ThisKey="PropertyID" OtherKey="ID" Type="Property" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Scripts" Member="Scripts">
+    <Type Name="Script">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IsLock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sizes" Member="Sizes">
+    <Type Name="Size">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Size_ProductDetail" Member="ProductDetails" ThisKey="ID" OtherKey="SizeID" Type="ProductDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SliderLs" Member="SliderLs">
+    <Type Name="SliderL">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SliderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IsBlank" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Language" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Slider_SliderL" Member="Slider" ThisKey="SliderID" OtherKey="ID" Type="Slider" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sliders" Member="Sliders">
+    <Type Name="Slider">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="IsLock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateModified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Slider_SliderL" Member="SliderLs" ThisKey="ID" OtherKey="SliderID" Type="SliderL" />
+    </Type>
+  </Table>
+</Database>
